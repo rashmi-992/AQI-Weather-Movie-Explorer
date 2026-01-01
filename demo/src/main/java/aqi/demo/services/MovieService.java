@@ -9,7 +9,7 @@ import java.util.Map;
 @Service
 public class MovieService {
 
-    private static final String API_KEY = "e27ad6a6";
+    private static final String API_KEY = "API-KEY";
     private static final String SEARCH_URL =
             "http://www.omdbapi.com/?apikey=" + API_KEY + "&s={title}";
 
