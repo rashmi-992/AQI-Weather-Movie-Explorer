@@ -59,23 +59,24 @@ All services run locally using a single Spring Boot application.
 
 ## Project Structure
 
+Project Root
 ├── src/
-│ └── main/
-│ └── java/
-│ └── aqi/demo/
-│ ├── controller/
-│ │ ├── AqiController.java
-│ │ ├── WeatherController.java
-│ │ └── MovieController.java
-│ ├── services/
-│ │ ├── AqiService.java
-│ │ ├── WeatherService.java
-│ │ └── MovieService.java
-│ └── AqiApplication.java
+│   └── main/
+│       └── java/
+│           └── aqi/demo/
+│               ├── controller/
+│               │   ├── AqiController.java
+│               │   ├── WeatherController.java
+│               │   └── MovieController.java
+│               ├── services/
+│               │   ├── AqiService.java
+│               │   ├── WeatherService.java
+│               │   └── MovieService.java
+│               └── AqiApplication.java
 ├── frontend/
-│ ├── aqi.html
-│ ├── weather.html
-│ └── omdb.html
+│   ├── aqi.html
+│   ├── weather.html
+│   └── omdb.html
 ├── pom.xml
 └── README.md
 
