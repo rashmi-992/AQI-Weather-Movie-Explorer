@@ -32,8 +32,8 @@ All services run locally using a single Spring Boot application.
 
 **Backend Endpoint**
 ### UI Screenshot 1
-![UI Screenshot 1](<img width="1920" height="1080" alt="Screenshot 2026-01-01 124558" src="https://github.com/user-attachments/assets/75a1678e-e18f-4c2c-a4fe-e77983c491ad" />
-.jpg)
+<img width="1920" height="1080" alt="Screenshot 2026-01-01 124558" src="https://github.com/user-attachments/assets/75a1678e-e18f-4c2c-a4fe-e77983c491ad" />
+
 ---
 
 ### 2️⃣ Current Weather Search
