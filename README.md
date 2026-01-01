@@ -56,8 +56,6 @@ All services run locally using a single Spring Boot application.
 **Backend Endpoint**
 <img width="1919" height="1079" alt="Screenshot 2026-01-01 124907" src="https://github.com/user-attachments/assets/74b4793b-31e6-4a8a-b24d-3b938479e39f" />
 
-
-## Project Structure
 ## Project Structure
 
 ```text
