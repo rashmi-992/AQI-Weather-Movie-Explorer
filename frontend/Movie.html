@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>OMDB Movie Explorer</title>
+  <style>
+    body { font-family: Arial; background:#f4f6f8; }
+    .box {
+      max-width:700px; margin:40px auto;
+      background:white; padding:20px;
+      border-radius:8px;
+    }
+    input, button { padding:10px; font-size:16px; }
+    .grid {
+      display:grid; grid-template-columns:repeat(auto-fill,150px);
+      gap:15px; margin-top:20px;
+    }
+    .card { text-align:center; }
+    img { width:100%; border-radius:4px; }
+  </style>
+</head>
+
+<body>
+<div class="box">
+  <h2>OMDB Movie Explorer</h2>
+  <input id="q" placeholder="Search movie title">
+  <button onclick="search()">Search</button>
+
+  <div class="grid" id="results"></div>
+</div>
+
+<script>
+async function search() {
+  const q = document.getElementById("q").value;
+  const res = await fetch(`http://localhost:8080/api/movies?title=${q}`);
+  const data = await res.json();
+
+  const box = document.getElementById("results");
+  box.innerHTML = "";
+
+  if (!data.Search) return;
+
+  data.Search.forEach(m => {
+    box.innerHTML += `
+      <div class="card">
+        <img src="${m.Poster}" />
+        <div><b>${m.Title}</b></div>
+        <div>${m.Year}</div>
+      </div>`;
+  });
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Weather Dashboard</title>
+  <style>
+    body {
+      font-family: Arial;
+      background: #eef2f5;
+    }
+    .box {
+      max-width: 500px;
+      margin: 60px auto;
+      background: white;
+      padding: 30px;
+      border-radius: 8px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+    input, button {
+      padding: 10px;
+      font-size: 16px;
+    }
+    button {
+      background: #2196f3;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+    .data {
+      margin-top: 20px;
+    }
+    .value {
+      font-size: 32px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="box">
+    <h2>Current Weather</h2>
+
+    <input id="city" placeholder="Enter city" />
+    <button onclick="search()">Search</button>
+
+    <div class="data" id="result"></div>
+  </div>
+
+  <script>
+    async function search() {
+      const city = document.getElementById("city").value;
+      const res = await fetch(
+        `http://localhost:8080/api/weather?city=${city}`
+      );
+      const data = await res.json();
+
+      document.getElementById("result").innerHTML = `
+        <div class="value">${data.main.temp} °C</div>
+        <div>Humidity: ${data.main.humidity}%</div>
+        <div>Wind Speed: ${data.wind.speed} m/s</div>
+      `;
+    }
+  </script>
+</body>
+</html>

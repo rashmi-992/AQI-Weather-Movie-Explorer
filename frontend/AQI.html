@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>AQI Dashboard</title>
+  <style>
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      background: #f4f6f8;
+      margin: 0;
+      padding: 0;
+    }
+
+    .container {
+      max-width: 600px;
+      margin: 60px auto;
+      background: #ffffff;
+      padding: 30px;
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 25px;
+      color: #333;
+    }
+
+    .search-box {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 25px;
+    }
+
+    input {
+      flex: 1;
+      padding: 10px;
+      font-size: 16px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+
+    button {
+      padding: 10px 16px;
+      font-size: 16px;
+      background: #1976d2;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background: #125aa0;
+    }
+
+    .card {
+      padding: 20px;
+      border-radius: 6px;
+      background: #fafafa;
+      border-left: 6px solid #999;
+    }
+
+    .city {
+      font-size: 18px;
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+
+    .aqi {
+      font-size: 48px;
+      font-weight: bold;
+      margin: 10px 0;
+    }
+
+    .label {
+      font-size: 14px;
+      color: #555;
+    }
+
+    .good { border-color: #4caf50; }
+    .moderate { border-color: #ff9800; }
+    .unhealthy { border-color: #f44336; }
+    .very-unhealthy { border-color: #7b1fa2; }
+
+    .error {
+      color: red;
+      text-align: center;
+      margin-top: 15px;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <h1>Air Quality Index</h1>
+
+    <div class="search-box">
+      <input id="city" placeholder="Enter city name (e.g. Pune)" />
+      <button onclick="searchAQI()">Search</button>
+    </div>
+
+    <div id="output"></div>
+    <div id="error" class="error"></div>
+  </div>
+
+  <script>
+    function getCategory(aqi) {
+      if (aqi <= 50) return { text: "Good", cls: "good" };
+      if (aqi <= 100) return { text: "Moderate", cls: "moderate" };
+      if (aqi <= 200) return { text: "Unhealthy", cls: "unhealthy" };
+      return { text: "Very Unhealthy", cls: "very-unhealthy" };
+    }
+
+    async function searchAQI() {
+      const city = document.getElementById("city").value;
+      const output = document.getElementById("output");
+      const error = document.getElementById("error");
+
+      output.innerHTML = "";
+      error.innerText = "";
+
+      if (!city) {
+        error.innerText = "Please enter a city name.";
+        return;
+      }
+
+      try {
+        const res = await fetch(`http://localhost:8080/api/aqi?city=${city}`);
+        const data = await res.json();
+
+        if (data.status !== "ok") {
+          error.innerText = "City not found or API error.";
+          return;
+        }
+
+        const aqi = data.data.aqi;
+        const cityName = data.data.city.name;
+        const pollutant = data.data.dominentpol;
+
+        const category = getCategory(aqi);
+
+        output.innerHTML = `
+          <div class="card ${category.cls}">
+            <div class="city">${cityName}</div>
+            <div class="label">Air Quality Index</div>
+            <div class="aqi">${aqi}</div>
+            <div class="label">Status: ${category.text}</div>
+            <div class="label">Dominant Pollutant: ${pollutant.toUpperCase()}</div>
+          </div>
+        `;
+      } catch (e) {
+        error.innerText = "Unable to fetch AQI data.";
+      }
+    }
+  </script>
+</body>
+</html>
+
+
+
+
