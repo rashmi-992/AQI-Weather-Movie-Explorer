@@ -136,6 +136,3 @@ The frontend communicates with the backend using REST APIs.
 
 ---
 
-## Status
-Submitted as part of a coding assignment.  
-The repository may be refined further within the provided 48-hour window.
